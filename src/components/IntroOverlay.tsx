@@ -1,15 +1,20 @@
 import { useRef, useState } from 'react'
-import introMp4 from '../assets/intro-garments-to-money.mp4'
+// import introMp4 from '../assets/intro-garments-to-money.mp4'
+import introMp4 from '../assets/intro-garments-away.mp4'
 
 interface Props {
   onDone: () => void
+  onVideoStart: () => void
 }
 
-const START_VIDEO_OFFSET_MS = 1300;   // ms to skip from the beginning
+const START_VIDEO_OFFSET_MS = 1800;   // ms to skip from the beginning
 const END_VIDEO_MS_BEFORE = 2200;
 
-export default function IntroOverlay({ onDone }: Props) {
+const FADE_START_S = 2 // seconds before end to start fading the video
+
+export default function IntroOverlay({ onDone, onVideoStart }: Props) {
   const [fading, setFading] = useState(false)
+  const [videoOpacity, setVideoOpacity] = useState(1)
   const dismissed = useRef(false)
   const videoRef = useRef<HTMLVideoElement>(null)
 
@@ -21,17 +26,23 @@ export default function IntroOverlay({ onDone }: Props) {
   }
 
   const handleTimeUpdate = () => {
-    if (!videoRef.current) return;
+    if (!videoRef.current) return
 
-    const duration = videoRef.current.duration;
-    const currentTime = videoRef.current.currentTime;
-    const endOffset = END_VIDEO_MS_BEFORE / 1000; // Convert ms to seconds
+    const duration = videoRef.current.duration
+    const currentTime = videoRef.current.currentTime
+    const endOffset = END_VIDEO_MS_BEFORE / 1000
 
-    if (duration && currentTime >= duration - endOffset) {
-      videoRef.current.pause();
-      dismiss()
+    if (duration) {
+      const timeLeft = duration - endOffset - currentTime
+      if (timeLeft <= FADE_START_S) {
+        setVideoOpacity(Math.max(0, timeLeft / FADE_START_S))
+      }
+      if (currentTime >= duration - endOffset) {
+        videoRef.current.pause()
+        dismiss()
+      }
     }
-  };
+  }
 
 
   return (
@@ -43,10 +54,10 @@ export default function IntroOverlay({ onDone }: Props) {
         position: 'fixed',
         inset: 0,
         zIndex: 9999,
-        background: '#08070B',
+        background: 'transparent',
         cursor: 'pointer',
         opacity: fading ? 0 : 1,
-        transition: 'opacity 0.35s ease',
+        transition: 'opacity 0.1s ease-out',
         pointerEvents: fading ? 'none' : 'all',
       }}
     >
@@ -57,9 +68,12 @@ export default function IntroOverlay({ onDone }: Props) {
         muted
         playsInline
         onLoadedMetadata={() => {
-          if (videoRef.current && START_VIDEO_OFFSET_MS > 0)
-            videoRef.current.currentTime = START_VIDEO_OFFSET_MS / 1000
+          if (videoRef.current && START_VIDEO_OFFSET_MS > 0) {
+            videoRef.current.currentTime = START_VIDEO_OFFSET_MS / 1000;
+            videoRef.current.playbackRate = 1.5;
+          }
         }}
+        onPlay={onVideoStart}
         onTimeUpdate={handleTimeUpdate}
         style={{
           position: 'absolute',
@@ -67,6 +81,8 @@ export default function IntroOverlay({ onDone }: Props) {
           width: '100%',
           height: '100%',
           objectFit: 'cover',
+          transform: 'scale(1.15)',
+          opacity: videoOpacity,
         }}
       />
     </div>
