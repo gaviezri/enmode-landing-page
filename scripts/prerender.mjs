@@ -54,7 +54,11 @@ function serve() {
 
 async function prerender() {
   const server = await serve()
-  const browser = await puppeteer.launch({ headless: true })
+  const isCI = !!process.env.CI
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: isCI ? ['--no-sandbox', '--disable-setuid-sandbox'] : [],
+  })
 
   for (const route of ROUTES) {
     console.log(`[prerender] Rendering ${route} ...`)
