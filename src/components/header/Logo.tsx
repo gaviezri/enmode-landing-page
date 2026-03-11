@@ -1,7 +1,4 @@
-import { useNavTheme } from '../../context/NavThemeContext'
-
-const Logo = () => {
-  const { navTheme } = useNavTheme()
+const Logo = ({ overridColor }: { overridColor?: string }) => {
   return (
     <a
       href="#"
@@ -10,7 +7,7 @@ const Logo = () => {
         fontFamily: 'Syne, system-ui, sans-serif',
         fontWeight: 800,
         letterSpacing: '0.06em',
-        color: navTheme === 'dark' ? '#F0EBE5' : '#0D0C10',
+        color: overridColor ?? '#0D0C10',
         transition: 'color 0.4s ease',
       }}
     >

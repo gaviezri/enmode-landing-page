@@ -8,9 +8,9 @@ interface Props {
 }
 
 const START_VIDEO_OFFSET_MS = 1800;   // ms to skip from the beginning
-const END_VIDEO_MS_BEFORE = 2200;
+const END_VIDEO_MS_BEFORE = 2700;
 
-const FADE_START_S = 2 // seconds before end to start fading the video
+const FADE_START_S = 1.5 // seconds before end to start fading the video
 
 export default function IntroOverlay({ onDone, onVideoStart }: Props) {
   const [fading, setFading] = useState(false)
@@ -57,7 +57,7 @@ export default function IntroOverlay({ onDone, onVideoStart }: Props) {
         position: 'fixed',
         inset: 0,
         zIndex: 9999,
-        background: '#08070B',
+        background: '#F9F6F2',
         cursor: 'pointer',
         opacity: fading ? 0 : 1,
         transition: 'opacity 0.1s ease-out',

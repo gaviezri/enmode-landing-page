@@ -3,19 +3,40 @@ import Logo from './Logo'
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
+  const [overDark, setOverDark] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50)
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+
+      // Check if nav (at y=32, middle of 64px nav) overlaps a dark section
+      const navY = 32
+      const darkSections = document.querySelectorAll<HTMLElement>('#features, footer')
+      let dark = false
+      for (const section of darkSections) {
+        const rect = section.getBoundingClientRect()
+        if (rect.top <= navY && rect.bottom >= navY) {
+          dark = true
+          break
+        }
+      }
+      setOverDark(dark)
+    }
+
     window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const logoColor = overDark ? '#F0EBE5' : '#0D0C10'
+  const ctaTextColor = overDark ? 'rgba(240,235,229,0.7)' : 'rgba(13,12,16,0.7)'
+
   return (
     <nav
-      className="fixed sticky top-0 left-0 right-0 z-50 transition-all duration-500"
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
       style={{
         background: 'transparent',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.15)' : '1px solid transparent',
+        borderBottom: scrolled ? `1px solid ${overDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)'}` : '1px solid transparent',
       }}
     >
       {scrolled && (
@@ -28,33 +49,15 @@ export default function Nav() {
             WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
             maskImage: 'linear-gradient(to bottom, black 0%, black 50%, rgba(0,0,0,0.3) 100%)',
             WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 50%, rgba(0,0,0,0.3) 100%)',
-            background: 'linear-gradient(to bottom, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.04) 100%)',
+            background: overDark
+              ? 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.1) 100%)'
+              : 'linear-gradient(to bottom, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.04) 100%)',
             zIndex: 0,
           }}
         />
       )}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
-       <Logo />
-
-        {/* Nav links
-        <div className="hidden md:flex items-center gap-10">
-          {[
-            { label: 'Discover', href: '#discover' },
-            { label: 'How It Works', href: '#how-it-works' },
-            { label: 'Pricing', href: '#pricing' },
-          ].map(({ label, href }) => (
-            <a
-              key={label}
-              href={href}
-              className="text-[11px] font-medium tracking-[0.18em] uppercase transition-colors duration-200 cursor-pointer"
-              style={{ color: 'rgba(13,12,16,0.45)' }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(13,12,16,0.9)')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(13,12,16,0.45)')}
-            >
-              {label}
-            </a>
-          ))}
-        </div> */}
+        <Logo overridColor={logoColor} />
 
         {/* CTA */}
         <a
@@ -76,7 +79,7 @@ export default function Nav() {
         {/* Mobile hamburger */}
         <button
           className="md:hidden p-2 cursor-pointer"
-          style={{ color: 'rgba(13,12,16,0.7)' }}
+          style={{ color: ctaTextColor, transition: 'color 0.4s ease' }}
           aria-label="Open navigation menu"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">

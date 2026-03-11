@@ -24,6 +24,7 @@ export default function App() {
         className="min-h-screen"
         style={{
           opacity: introComplete ? 1 : 0,
+          transition: 'opacity 1.2s ease-in-out',
         }}
       >
         <Nav />
