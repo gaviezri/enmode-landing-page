@@ -21,7 +21,7 @@ export default function App() {
       <div
         className="min-h-screen"
         style={{
-          opacity: videoStarted || introComplete ? 1 : 0,
+          opacity: introComplete ? 1 : 0,
         }}
       >
         <Nav />

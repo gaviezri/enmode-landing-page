@@ -220,7 +220,7 @@ export default function WishlistSection() {
                 <p className="text-xs font-light text-charcoal/50">Replace every wishlist you've ever bookmarked.</p>
               </div>
               <a
-                href="#early-access"
+                href="#waitlist"
                 className="inline-flex items-center gap-2.5 text-[11px] font-semibold tracking-[0.14em] uppercase px-7 py-3.5 rounded-full transition-colors duration-200 cursor-pointer flex-shrink-0"
                 style={{ background: '#0D0C10', color: '#F9F6F2' }}
                 onMouseEnter={(e) => (e.currentTarget.style.background = '#B85042')}

@@ -1,3 +1,7 @@
+import { useState, type FormEvent } from 'react'
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
+import { db } from '../lib/firebase'
+
 const SECTION_LINKS: { label: string; href: string }[] = [
   { label: 'How It Works', href: '#how-it-works' },
   { label: 'Features',     href: '#features' },
@@ -12,11 +16,31 @@ const LEGAL_LINKS: { label: string; href: string }[] = [
 const SNOW = 'rgba(237,232,226,'
 
 export default function Footer() {
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault()
+    if (!email || status === 'sending') return
+
+    setStatus('sending')
+    try {
+      await addDoc(collection(db, 'waitlist'), {
+        email,
+        joinedAt: serverTimestamp(),
+      })
+      setStatus('success')
+      setEmail('')
+    } catch {
+      setStatus('error')
+    }
+  }
+
   return (
     <footer style={{ background: '#08070B' }}>
-      {/* Early Access CTA Banner */}
+      {/* Waitlist CTA Banner */}
       <div
-        id="early-access"
+        id="waitlist"
         className="px-6 py-24"
         style={{ borderBottom: `1px solid ${SNOW}0.06)` }}
       >
@@ -37,44 +61,71 @@ export default function Footer() {
           </p>
 
           {/* Email signup */}
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-          >
-            <label htmlFor="email-input" className="sr-only">Email address</label>
-            <input
-              id="email-input"
-              type="email"
-              placeholder="Your email address"
-              className="flex-1 px-5 py-4 rounded-full text-sm outline-none transition-all duration-200"
-              style={{
-                background: `${SNOW}0.05)`,
-                border: `1px solid ${SNOW}0.1)`,
-                color: '#EDE8E2',
-              }}
-              onFocus={(e) => {
-                e.target.style.borderColor = `${SNOW}0.3)`
-                e.target.style.background = `${SNOW}0.08)`
-              }}
-              onBlur={(e) => {
-                e.target.style.borderColor = `${SNOW}0.1)`
-                e.target.style.background = `${SNOW}0.05)`
-              }}
-            />
-            <button
-              type="submit"
-              className="px-7 py-4 rounded-full text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors duration-200 cursor-pointer flex-shrink-0"
-              style={{ background: '#B85042', color: '#EDE8E2' }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = '#8C3A2E')}
-              onMouseLeave={(e) => (e.currentTarget.style.background = '#B85042')}
+          {status === 'success' ? (
+            <div className="flex items-center justify-center gap-2 py-4">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AAD7A" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <p className="text-sm font-medium" style={{ color: '#9AAD7A' }}>
+                You're on the list. We'll be in touch.
+              </p>
+            </div>
+          ) : (
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
             >
-              Get Early Access
-            </button>
-          </form>
+              <label htmlFor="email-input" className="sr-only">Email address</label>
+              <input
+                id="email-input"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Your email address"
+                className="flex-1 px-5 py-4 rounded-full text-sm outline-none transition-all duration-200"
+                style={{
+                  background: `${SNOW}0.05)`,
+                  border: `1px solid ${SNOW}0.1)`,
+                  color: '#EDE8E2',
+                }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = `${SNOW}0.3)`
+                  e.target.style.background = `${SNOW}0.08)`
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = `${SNOW}0.1)`
+                  e.target.style.background = `${SNOW}0.05)`
+                }}
+              />
+              <button
+                type="submit"
+                disabled={status === 'sending'}
+                className="px-7 py-4 rounded-full text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors duration-200 cursor-pointer flex-shrink-0"
+                style={{
+                  background: status === 'sending' ? '#8C3A2E' : '#B85042',
+                  color: '#EDE8E2',
+                  opacity: status === 'sending' ? 0.7 : 1,
+                }}
+                onMouseEnter={(e) => status !== 'sending' && (e.currentTarget.style.background = '#8C3A2E')}
+                onMouseLeave={(e) => status !== 'sending' && (e.currentTarget.style.background = '#B85042')}
+              >
+                {status === 'sending' ? 'Joining...' : 'Get Early Access'}
+              </button>
+            </form>
+          )}
 
-          <p className="mt-5 text-[11px]" style={{ color: `${SNOW}0.24)` }}>
-            No spam. Unsubscribe at any time.
-          </p>
+          {status === 'error' && (
+            <p className="mt-4 text-[11px]" style={{ color: '#B85042' }}>
+              Something went wrong. Please try again.
+            </p>
+          )}
+
+          {status !== 'success' && (
+            <p className="mt-5 text-[11px]" style={{ color: `${SNOW}0.24)` }}>
+              No spam. Unsubscribe at any time.
+            </p>
+          )}
         </div>
       </div>
 

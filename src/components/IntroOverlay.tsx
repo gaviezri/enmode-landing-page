@@ -57,7 +57,7 @@ export default function IntroOverlay({ onDone, onVideoStart }: Props) {
         position: 'fixed',
         inset: 0,
         zIndex: 9999,
-        background: 'transparent',
+        background: '#08070B',
         cursor: 'pointer',
         opacity: fading ? 0 : 1,
         transition: 'opacity 0.1s ease-out',
