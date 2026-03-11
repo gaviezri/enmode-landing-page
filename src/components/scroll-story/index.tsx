@@ -6,21 +6,21 @@ import type { ScrollStep } from '../../types'
 const STEPS: ScrollStep[] = [
   {
     num: '01',
-    label: 'Digitize',
-    heading: 'Your Wardrobe,\nAlive.',
-    body: 'Connect your gallery or social media. Our AI scans every photo, recognises each garment, and builds your digital wardrobe automatically — tagged, categorised, linked.',
+    label: 'Wardrobe',
+    heading: 'Your Closet,\nDigitized.',
+    body: 'Connect your gallery or social media. Our AI scans every photo, recognises each garment, and builds your digital wardrobe automatically — tagged, categorised, ready.',
   },
   {
     num: '02',
-    label: 'Style',
-    heading: 'Outfits You\nNever Imagined.',
-    body: "Your personal AI stylist generates looks from clothes you already own — trend-aware, designer-level combinations you wouldn't have thought of. Every outfit rendered on your AI avatar: your face, your measurements, your body.",
+    label: 'Curate',
+    heading: 'Looks You\nNever Saw.',
+    body: 'Save your favourite outfits. Our AI suggests fresh combinations from items you already own — trend-aware, styled to your taste, rendered on your avatar.',
   },
   {
     num: '03',
-    label: 'Earn',
-    heading: 'Your Style\nPays You.',
-    body: 'Expose selected looks on your public wardrobe. When anyone shops your style, you earn affiliate commission automatically — no brand deals, no follower minimum.',
+    label: 'Publish',
+    heading: 'Your Style,\nYour Income.',
+    body: 'Set any look as public. Visitors browse your wardrobe, shop part or the entire outfit through our affiliates — you earn commission on every sale. No brand deals, no follower minimum.',
   },
 ]
 
@@ -55,11 +55,15 @@ export default function ScrollStorySection() {
   const { setNavTheme } = useNavTheme()
 
   useEffect(() => {
-    const el = sectionRef.current
-    if (!el) return
+    const DARK_SECTIONS = ['how-it-works', 'features']
     const check = () => {
-      const { top, bottom } = el.getBoundingClientRect()
-      setNavTheme(top <= 104 && bottom > 64 ? 'dark' : 'light')
+      const isDark = DARK_SECTIONS.some(id => {
+        const el = document.getElementById(id)
+        if (!el) return false
+        const { top, bottom } = el.getBoundingClientRect()
+        return top <= 104 && bottom > 64
+      })
+      setNavTheme(isDark ? 'dark' : 'light')
     }
     window.addEventListener('scroll', check, { passive: true })
     check()
@@ -70,15 +74,9 @@ export default function ScrollStorySection() {
     <section
       ref={sectionRef}
       id="how-it-works"
-      style={{ height: '270vh', background: '#0F0E11' }}
+      style={{ height: '170vh', background: '#0F0E11' }}
       className="relative"
     >
-      {/* Top eyebrow */}
-      <div className="absolute top-0 left-0 right-0 flex justify-center pt-16 pointer-events-none" aria-hidden="true">
-        <p className="text-[10px] tracking-[0.28em] uppercase" style={{ color: 'rgba(240,235,229,0.22)' }}>
-          Digitize · Style · Earn
-        </p>
-      </div>
 
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         <div className="w-full max-w-7xl mx-auto px-6 lg:px-10 py-16">

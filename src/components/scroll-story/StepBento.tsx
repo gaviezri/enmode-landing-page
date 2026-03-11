@@ -20,8 +20,8 @@ const card = {
   },
 }
 
-/* ── Step 01: Digitize ── */
-function DigitizenBento() {
+/* ── Step 01: Wardrobe ── */
+function WardrobeBento() {
   const items = ['Blazer', 'Trench', 'Silk Top', 'Denim', 'Midi Dress', 'Loafers']
   const colors = ['#C4A054','#B85042','#706D69','#4A6A8C','#778C58','#8C6A4A']
   return (
@@ -65,60 +65,70 @@ function DigitizenBento() {
   )
 }
 
-/* ── Step 02: Style ── */
-function StyleBento() {
-  const tags = ['Trending Now', 'Your Aesthetic', 'Designer Eye', 'Color Story']
+/* ── Step 02: Curate ── */
+function CurateBento() {
+  const saved = [
+    { name: 'Weekend Brunch', items: 3, color: '#C4A054' },
+    { name: 'Date Night', items: 4, color: '#B85042' },
+    { name: 'Power Meeting', items: 3, color: '#4A6A8C' },
+  ]
+  const suggestions = ['Trench + Silk Top', 'Blazer + Denim', 'Midi Dress + Loafers']
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: 'auto auto', gap: 10 }}>
-      {/* Avatar card — tall, spans full height on left */}
-      <div style={{ ...card.dark, gridRow: '1 / 3', padding: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', minHeight: 220, position: 'relative' }}>
-        <div style={{ position: 'absolute', top: 10, left: 10, right: 10, background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(8px)', borderRadius: 10, padding: '6px 10px', display: 'flex', alignItems: 'center', gap: 6 }}>
-          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#C4A054" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
-            <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
-          </svg>
-          <span style={{ fontSize: 9, color: '#C4A054', fontWeight: 700 }}>Designer Pick</span>
-        </div>
-        <svg viewBox="0 0 100 180" width="100" height="180" aria-hidden="true">
-          <ellipse cx="50" cy="20" rx="12" ry="14" fill="rgba(210,175,145,0.9)" />
-          <ellipse cx="45" cy="18" rx="1.8" ry="2.2" fill="rgba(100,70,50,0.65)" />
-          <ellipse cx="55" cy="18" rx="1.8" ry="2.2" fill="rgba(100,70,50,0.65)" />
-          <path d="M45 25 Q50 28 55 25" stroke="rgba(100,70,50,0.55)" strokeWidth="0.9" fill="none" strokeLinecap="round" />
-          <rect x="44" y="33" width="12" height="9" rx="3" fill="rgba(210,175,145,0.9)" />
-          <path d="M22 42 Q50 37 78 42 L80 118 Q50 124 20 118 Z" fill="rgba(196,160,84,0.85)" />
-          <path d="M38 42 L34 63 L50 55 L66 63 L62 42" fill="rgba(150,118,52,0.9)" />
-          <path d="M22 44 L10 90 Q8 95 14 96 L25 95 L33 57 Z" fill="rgba(196,160,84,0.85)" />
-          <path d="M78 44 L90 90 Q92 95 86 96 L75 95 L67 57 Z" fill="rgba(196,160,84,0.85)" />
-          <rect x="27" y="116" width="19" height="56" rx="4" fill="rgba(20,18,24,0.95)" />
-          <rect x="54" y="116" width="19" height="56" rx="4" fill="rgba(20,18,24,0.95)" />
-        </svg>
-        <div style={{ padding: '8px 12px 12px', textAlign: 'center' }}>
-          <p style={{ fontSize: 8, color: 'rgba(240,235,229,0.35)', marginBottom: 2 }}>Your face · your measurements</p>
-          <p style={{ fontSize: 10, color: '#F0EBE5', fontWeight: 600 }}>AI Avatar</p>
-        </div>
-      </div>
-
-      {/* Style tags */}
-      <div style={{ ...card.base, padding: 14 }}>
-        <p style={{ fontSize: 9, color: 'rgba(240,235,229,0.3)', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 10 }}>Style signals</p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
-          {tags.map((t, i) => (
-            <span key={i} style={{ fontSize: 9, padding: '3px 8px', borderRadius: 20, background: i === 0 ? 'rgba(196,160,84,0.15)' : 'rgba(255,255,255,0.06)', color: i === 0 ? '#C4A054' : 'rgba(240,235,229,0.55)', border: `1px solid ${i === 0 ? 'rgba(196,160,84,0.3)' : 'rgba(255,255,255,0.08)'}` }}>{t}</span>
+      {/* Saved looks — full width */}
+      <div style={{ ...card.base, gridColumn: '1 / -1', padding: 16 }}>
+        <p style={{ fontSize: 9, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(240,235,229,0.3)', marginBottom: 12 }}>Saved Looks</p>
+        <div style={{ display: 'flex', gap: 8 }}>
+          {saved.map((look, i) => (
+            <div key={i} style={{ flex: 1, padding: '10px 12px', borderRadius: 12, background: `${look.color}12`, border: `1px solid ${look.color}30` }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill={`${look.color}88`} aria-hidden="true">
+                  <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+                </svg>
+                <span style={{ fontSize: 10, color: '#F0EBE5', fontWeight: 600 }}>{look.name}</span>
+              </div>
+              <span style={{ fontSize: 8, color: 'rgba(240,235,229,0.4)' }}>{look.items} items</span>
+            </div>
           ))}
         </div>
       </div>
 
-      {/* Looks generated stat */}
-      <div style={{ ...card.accent, padding: 14 }}>
-        <p style={{ fontSize: 9, color: 'rgba(249,246,242,0.65)', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 6 }}>Looks generated</p>
-        <p style={{ fontSize: 28, fontWeight: 700, color: '#F9F6F2', lineHeight: 1, marginBottom: 2 }}>24</p>
-        <p style={{ fontSize: 9, color: 'rgba(249,246,242,0.6)' }}>From your closet</p>
+      {/* AI suggestions */}
+      <div style={{ ...card.dark, padding: 14 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10 }}>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#C4A054" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+          </svg>
+          <span style={{ fontSize: 9, color: '#C4A054', letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 700 }}>AI Suggests</span>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {suggestions.map((s, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 10px', borderRadius: 8, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
+              <span style={{ fontSize: 10, color: 'rgba(240,235,229,0.65)' }}>{s}</span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(240,235,229,0.3)" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Avatar preview */}
+      <div style={{ ...card.accent, padding: 14, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <svg viewBox="0 0 60 90" width="48" height="72" aria-hidden="true">
+          <ellipse cx="30" cy="14" rx="8" ry="10" fill="rgba(210,175,145,0.9)" />
+          <path d="M14 30 Q30 26 46 30 L47 72 Q30 76 13 72 Z" fill="rgba(196,160,84,0.8)" />
+          <rect x="17" y="70" width="11" height="18" rx="3" fill="rgba(20,18,24,0.9)" />
+          <rect x="32" y="70" width="11" height="18" rx="3" fill="rgba(20,18,24,0.9)" />
+        </svg>
+        <p style={{ fontSize: 9, color: 'rgba(249,246,242,0.65)', marginTop: 8, textAlign: 'center' }}>Preview on<br /><span style={{ fontWeight: 700, color: '#F9F6F2' }}>your avatar</span></p>
       </div>
     </div>
   )
 }
 
-/* ── Step 03: Earn ── */
-function EarnBento() {
+/* ── Step 03: Publish ── */
+function PublishBento() {
   const looks = [
     { name: 'Evening Gold',  earned: '$38.50', views: '2.4k', live: true },
     { name: 'Street Casual', earned: '$14.20', views: '1.1k', live: true },
@@ -126,9 +136,23 @@ function EarnBento() {
   ]
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-      {/* Earnings hero — full width */}
+      {/* Public wardrobe header — full width */}
+      <div style={{ ...card.base, gridColumn: '1 / -1', padding: '14px 16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div>
+            <p style={{ fontSize: 9, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(240,235,229,0.3)', marginBottom: 4 }}>Public Wardrobe</p>
+            <p style={{ fontSize: 13, color: '#F0EBE5', fontWeight: 600 }}>3 looks live</p>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 10px', borderRadius: 20, background: 'rgba(154,173,122,0.12)', border: '1px solid rgba(154,173,122,0.25)' }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#9AAD7A', display: 'inline-block', animation: 'pulse 1.4s infinite' }} />
+            <span style={{ fontSize: 9, color: '#9AAD7A', fontWeight: 700 }}>PUBLIC</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Earnings card — accent */}
       <div style={{ ...card.accent, gridColumn: '1 / -1', padding: '18px 20px' }}>
-        <p style={{ fontSize: 9, color: 'rgba(249,246,242,0.6)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 8 }}>This month</p>
+        <p style={{ fontSize: 9, color: 'rgba(249,246,242,0.6)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 8 }}>Commission earned</p>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
           <p style={{ fontSize: 40, fontWeight: 700, color: '#F9F6F2', lineHeight: 1, fontFamily: 'Cormorant, serif' }}>$62.50</p>
           <div style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 10px', background: 'rgba(0,0,0,0.2)', borderRadius: 20 }}>
@@ -138,10 +162,10 @@ function EarnBento() {
             <span style={{ fontSize: 10, color: '#9AAD7A', fontWeight: 700 }}>+34%</span>
           </div>
         </div>
-        <p style={{ fontSize: 9, color: 'rgba(249,246,242,0.5)', marginTop: 4 }}>3 looks · no brand deals · no minimum</p>
+        <p style={{ fontSize: 9, color: 'rgba(249,246,242,0.5)', marginTop: 4 }}>From visitors shopping your looks</p>
       </div>
 
-      {/* Active looks */}
+      {/* Per-look cards */}
       {looks.map((look, i) => (
         <div key={i} style={{ ...card.base, padding: 12, gridColumn: i === 2 ? '1 / -1' : undefined }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
@@ -161,7 +185,7 @@ function EarnBento() {
   )
 }
 
-const BENTOS = [DigitizenBento, StyleBento, EarnBento]
+const BENTOS = [WardrobeBento, CurateBento, PublishBento]
 
 export function StepBento({ activeStep }: Props) {
   return (
