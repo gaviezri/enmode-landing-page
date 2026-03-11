@@ -19,7 +19,7 @@ export default function HeroSection({ introComplete }: { introComplete?: boolean
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto w-full grid lg:grid-cols-[1fr_auto] gap-12 xl:gap-20 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto w-full grid lg:grid-cols-[1fr_auto] gap-12 xl:gap-20 items-start">
 
         {/* ── Left: Text ── */}
         <div className="max-w-2xl">
@@ -79,7 +79,7 @@ export default function HeroSection({ introComplete }: { introComplete?: boolean
         {/* ── Right: The Flow (desktop) ── */}
         <div
           className="hidden lg:flex flex-col justify-center opacity-0 animate-fade-in-up"
-          style={{ animationDelay: '400ms', animationFillMode: 'forwards' }}
+          style={{ animationDelay: '400ms', animationFillMode: 'forwards', marginTop: '-2rem' }}
         >
           <p
             className="text-[10px] tracking-[0.24em] uppercase mb-5"

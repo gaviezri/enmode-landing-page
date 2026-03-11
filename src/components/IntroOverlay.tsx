@@ -14,8 +14,8 @@ const FADE_START_S = 2 // seconds before end to start fading the video
 
 export default function IntroOverlay({ onDone, onVideoStart }: Props) {
   const [fading, setFading] = useState(false)
-  const [videoOpacity, setVideoOpacity] = useState(1)
   const dismissed = useRef(false)
+  const fadeStarted = useRef(false)
   const videoRef = useRef<HTMLVideoElement>(null)
 
   const dismiss = () => {
@@ -28,19 +28,22 @@ export default function IntroOverlay({ onDone, onVideoStart }: Props) {
   const handleTimeUpdate = () => {
     if (!videoRef.current) return
 
-    const duration = videoRef.current.duration
-    const currentTime = videoRef.current.currentTime
-    const endOffset = END_VIDEO_MS_BEFORE / 1000
+    const { duration, currentTime } = videoRef.current
+    if (!duration) return
 
-    if (duration) {
-      const timeLeft = duration - endOffset - currentTime
-      if (timeLeft <= FADE_START_S) {
-        setVideoOpacity(Math.max(0, timeLeft / FADE_START_S))
-      }
-      if (currentTime >= duration - endOffset) {
-        videoRef.current.pause()
-        dismiss()
-      }
+    const endOffset = END_VIDEO_MS_BEFORE / 1000
+    const timeLeft = duration - endOffset - currentTime
+
+    // Trigger a single CSS transition — browser interpolates every frame, no jumps
+    if (timeLeft <= FADE_START_S && !fadeStarted.current) {
+      fadeStarted.current = true
+      videoRef.current.style.transition = `opacity ${Math.max(0, timeLeft)}s linear`
+      videoRef.current.style.opacity = '0'
+    }
+
+    if (currentTime >= duration - endOffset) {
+      videoRef.current.pause()
+      dismiss()
     }
   }
 
@@ -82,7 +85,6 @@ export default function IntroOverlay({ onDone, onVideoStart }: Props) {
           height: '100%',
           objectFit: 'cover',
           transform: 'scale(1.15)',
-          opacity: videoOpacity,
         }}
       />
     </div>

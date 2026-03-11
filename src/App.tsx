@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import { NavThemeProvider } from './context/NavThemeContext'
 import IntroOverlay from './components/IntroOverlay'
 import Nav from './components/header/Nav'
 import HeroSection from './components/hero'
@@ -14,7 +15,7 @@ export default function App() {
   const [videoStarted, setVideoStarted] = useState(false)
 
   return (
-    <>
+    <NavThemeProvider>
       {!introComplete && <IntroOverlay onDone={() => { window.scrollTo(0, 0); setIntroComplete(true) }} onVideoStart={() => setVideoStarted(true)} />}
 
       <div
@@ -33,6 +34,6 @@ export default function App() {
         </main>
         <Footer />
       </div>
-    </>
+    </NavThemeProvider>
   )
 }

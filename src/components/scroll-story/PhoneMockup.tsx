@@ -1,12 +1,12 @@
-import { VisualSearchScreen } from './screens/VisualSearchScreen'
-import { DupeFinderScreen } from './screens/DupeFinderScreen'
-import { TryOnScreen } from './screens/TryOnScreen'
+import { WardrobeScreen } from './screens/WardrobeScreen'
+import { AvatarStyleScreen } from './screens/AvatarStyleScreen'
+import { EarnScreen } from './screens/EarnScreen'
 
 interface Props {
   activeStep: number
 }
 
-const SCREENS = [<VisualSearchScreen />, <DupeFinderScreen />, <TryOnScreen />]
+const SCREENS = [<WardrobeScreen />, <AvatarStyleScreen />, <EarnScreen />]
 
 /** iPhone-style frame that transitions between the 3 scroll-story screens. */
 export function PhoneMockup({ activeStep }: Props) {
