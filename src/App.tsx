@@ -5,10 +5,10 @@ import IntroOverlay from './components/IntroOverlay'
 import Nav from './components/header/Nav'
 import HeroSection from './components/hero'
 import ScrollStorySection from './components/scroll-story'
-import AnatomicSection from './components/anatomic'
-import MixMatchSection from './components/mix-match'
-import StyleVaultSection from './components/style-vault'
+import ToolboxSection from './components/toolbox'
+import WishlistSection from './components/wishlist'
 import Footer from './components/Footer'
+import BackToTop from './components/BackToTop'
 
 export default function App() {
   const [introComplete, setIntroComplete] = useState(false)
@@ -28,11 +28,11 @@ export default function App() {
         <main>
           <HeroSection introComplete={introComplete} />
           <ScrollStorySection />
-          <AnatomicSection />
-          <MixMatchSection />
-          <StyleVaultSection />
+          <ToolboxSection />
+          <WishlistSection />
         </main>
         <Footer />
+        <BackToTop />
       </div>
     </NavThemeProvider>
   )

@@ -1,8 +1,13 @@
-const LINKS = {
-  Product:   ['Visual Search', 'Mix & Match', 'Style Vault', 'Virtual Try-On'],
-  Company:   ['About', 'Careers', 'Press', 'Brand Partners'],
-  Legal:     ['Privacy Policy', 'Terms of Service', 'Cookie Settings'],
-}
+const SECTION_LINKS: { label: string; href: string }[] = [
+  { label: 'How It Works', href: '#how-it-works' },
+  { label: 'Features',     href: '#features' },
+  { label: 'Wishlist',     href: '#wishlist' },
+]
+
+const LEGAL_LINKS: { label: string; href: string }[] = [
+  { label: 'Privacy Policy',  href: '#' },
+  { label: 'Terms of Service', href: '#' },
+]
 
 const SNOW = 'rgba(237,232,226,'
 
@@ -76,7 +81,7 @@ export default function Footer() {
       {/* Footer links */}
       <div className="px-6 py-16">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-10 mb-14">
             {/* Brand column */}
             <div className="col-span-2 md:col-span-1">
               <a
@@ -118,32 +123,49 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Link columns */}
-            {Object.entries(LINKS).map(([category, links]) => (
-              <div key={category}>
-                <h3
-                  className="text-[10px] tracking-[0.22em] uppercase mb-5 font-medium"
-                  style={{ color: `${SNOW}0.28)` }}
-                >
-                  {category}
-                </h3>
-                <ul className="space-y-3">
-                  {links.map((link) => (
-                    <li key={link}>
-                      <a
-                        href="#"
-                        className="text-sm font-light transition-colors duration-200 cursor-pointer"
-                        style={{ color: `${SNOW}0.45)` }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = `${SNOW}0.85)`)}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = `${SNOW}0.45)`)}
-                      >
-                        {link}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            {/* Product links */}
+            <div>
+              <h3 className="text-[10px] tracking-[0.22em] uppercase mb-5 font-medium" style={{ color: `${SNOW}0.28)` }}>
+                Product
+              </h3>
+              <ul className="space-y-3">
+                {SECTION_LINKS.map(({ label, href }) => (
+                  <li key={label}>
+                    <a
+                      href={href}
+                      className="text-sm font-light transition-colors duration-200 cursor-pointer"
+                      style={{ color: `${SNOW}0.45)` }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = `${SNOW}0.85)`)}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = `${SNOW}0.45)`)}
+                    >
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Legal links */}
+            <div>
+              <h3 className="text-[10px] tracking-[0.22em] uppercase mb-5 font-medium" style={{ color: `${SNOW}0.28)` }}>
+                Legal
+              </h3>
+              <ul className="space-y-3">
+                {LEGAL_LINKS.map(({ label, href }) => (
+                  <li key={label}>
+                    <a
+                      href={href}
+                      className="text-sm font-light transition-colors duration-200 cursor-pointer"
+                      style={{ color: `${SNOW}0.45)` }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = `${SNOW}0.85)`)}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = `${SNOW}0.45)`)}
+                    >
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* Bottom bar */}

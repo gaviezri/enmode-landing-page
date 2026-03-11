@@ -127,7 +127,7 @@ export default function ScrollStorySection() {
               </div>
 
               {/* Body */}
-              <div className="relative mb-10" style={{ height: '6rem' }}>
+              <div className="relative mb-10 h-36 sm:h-24">
                 {STEPS.map((s, i) => (
                   <p
                     key={i}

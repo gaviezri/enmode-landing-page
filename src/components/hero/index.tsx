@@ -1,4 +1,3 @@
-import { HeroVisual } from './HeroVisual'
 import StepsFlow from './StepsFlow'
 
 export default function HeroSection({ introComplete }: { introComplete?: boolean }) {
