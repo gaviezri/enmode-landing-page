@@ -16,6 +16,9 @@ const DIST = new URL('../dist', import.meta.url).pathname
 const PORT = 4173
 const ROUTES = ['/']
 
+// Detect the base path Vite was built with (e.g. "/enmode-landing-page/")
+const BASE = process.env.VITE_BASE || '/'
+
 const MIME = {
   '.html': 'text/html',
   '.js':   'application/javascript',
@@ -24,14 +27,21 @@ const MIME = {
   '.json': 'application/json',
   '.png':  'image/png',
   '.jpg':  'image/jpeg',
+  '.mp4':  'video/mp4',
   '.woff2':'font/woff2',
 }
 
-// Minimal static file server for the dist folder
+// Minimal static file server that strips the base prefix before resolving files
 function serve() {
   return new Promise((resolve) => {
     const server = createServer((req, res) => {
-      const url = req.url === '/' ? '/index.html' : req.url
+      // Strip the base prefix so /enmode-landing-page/assets/x.js → /assets/x.js
+      let url = req.url
+      if (BASE !== '/' && url.startsWith(BASE)) {
+        url = url.slice(BASE.length - 1) // keep the leading /
+      }
+      if (url === '/') url = '/index.html'
+
       const filePath = join(DIST, url)
       try {
         const data = readFileSync(filePath)
@@ -46,7 +56,7 @@ function serve() {
       }
     })
     server.listen(PORT, () => {
-      console.log(`[prerender] Serving dist/ on http://localhost:${PORT}`)
+      console.log(`[prerender] Serving dist/ on http://localhost:${PORT} (base: ${BASE})`)
       resolve(server)
     })
   })
@@ -61,9 +71,11 @@ async function prerender() {
   })
 
   for (const route of ROUTES) {
-    console.log(`[prerender] Rendering ${route} ...`)
+    // Navigate to the base path so asset URLs resolve correctly
+    const url = `http://localhost:${PORT}${BASE}${route === '/' ? '' : route}`
+    console.log(`[prerender] Rendering ${url} ...`)
     const page = await browser.newPage()
-    await page.goto(`http://localhost:${PORT}${route}`, { waitUntil: 'networkidle0', timeout: 30_000 })
+    await page.goto(url, { waitUntil: 'networkidle0', timeout: 30_000 })
 
     // Wait for React root to have content
     await page.waitForSelector('#root > *', { timeout: 10_000 })
@@ -72,10 +84,6 @@ async function prerender() {
     await new Promise((r) => setTimeout(r, 2000))
 
     let html = await page.content()
-
-    // Remove any scripts that re-hydrate (the pre-rendered HTML is the fallback;
-    // the original <script type="module"> in the built HTML will still hydrate on client)
-    // We keep scripts intact so the page stays interactive.
 
     const outPath = join(DIST, route === '/' ? 'index.html' : `${route}/index.html`)
     writeFileSync(outPath, html, 'utf-8')
