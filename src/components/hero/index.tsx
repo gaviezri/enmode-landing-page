@@ -3,7 +3,7 @@ import StepsFlow from './StepsFlow'
 export default function HeroSection({ introComplete }: { introComplete?: boolean }) {
   return (
     <section
-      className="relative min-h-screen flex flex-col justify-center px-6 lg:px-10 pt-20 pb-16 overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center px-6 lg:px-10 pt-20 pb-16 overflow-hidden mesh-bg"
       style={{ background: '#F9F6F2' }}
     >
       {/* Subtle background texture blobs */}
@@ -25,10 +25,9 @@ export default function HeroSection({ introComplete }: { introComplete?: boolean
 
           {/* Headline */}
           <h1
-            className="font-serif font-light leading-[0.88] tracking-tight mb-8 opacity-0 animate-fade-in-up"
+            className="font-serif font-bold leading-[0.92] tracking-tight mb-8 opacity-0 animate-fade-in-up"
             style={{
-              fontFamily: 'Monda Variable, serif',
-              fontSize: 'clamp(3rem, 6vw, 7.5rem)',
+              fontSize: 'clamp(2.2rem, 6vw, 7.5rem)',
               color: '#0D0C10',
               animationDelay: '160ms',
               animationFillMode: 'forwards',

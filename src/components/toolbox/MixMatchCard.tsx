@@ -22,19 +22,19 @@ export default function MixMatchCard({ visible }: { visible: boolean }) {
         <div>
           <div className="flex items-center gap-3 mb-5">
             <span className="text-[10px] font-bold tracking-[0.18em]" style={{ color: '#B85042' }}>02</span>
-            <span className="text-[10px] tracking-[0.14em] uppercase font-medium" style={{ color: `${SNOW}0.5)` }}>AI Mix & Match</span>
+            <span className="text-[10px] tracking-[0.14em] uppercase font-medium" style={{ color: `${SNOW}0.62)` }}>AI Mix & Match</span>
           </div>
           <h3
-            className="font-serif font-light leading-tight mb-4"
+            className="font-serif font-bold leading-tight mb-4"
             style={{ fontSize: 'clamp(1.8rem, 3vw, 2.8rem)', color: '#F0EBE5' }}
           >
             Infinite Looks,<br />
             <em className="italic" style={{ color: '#B85042' }}>Your Budget.</em>
           </h3>
-          <p className="text-sm font-light leading-[1.8] max-w-md" style={{ color: `${SNOW}0.52)` }}>
-            Upload a style inspiration. Our platform runs deep architectural analysis of silhouettes, fabric stretch,
-            colours and textures — then generates an endless feed of inspired looks that match your budget.
-            Every item is shoppable through affiliate. Save for later, or hit Remix to swap any piece.
+          <p className="text-sm font-light leading-[1.8] max-w-md" style={{ color: `${SNOW}0.64)` }}>
+            Endless Outfits. Zero Effort — let AI be your personal stylist. The system generates
+            perfect Mix &amp; Match combinations from your digital wardrobe, or finds new pieces
+            that complete the look, tailored to your budget. Every item is shoppable. Save for later, or hit Remix to swap any piece.
           </p>
         </div>
 

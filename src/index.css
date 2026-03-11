@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -36,9 +36,9 @@
   --color-ink-card: #16141A;
   --color-ink-border: #2A2730;
 
-  --font-serif: 'Cormorant', Georgia, 'Times New Roman', serif;
+  --font-serif: 'Syne', system-ui, sans-serif;
   --font-sans: 'Montserrat', system-ui, -apple-system, sans-serif;
-  --font-display: 'Audiowide', system-ui, sans-serif;
+  --font-display: 'Syne', system-ui, sans-serif;
 }
 
 *, *::before, *::after {
@@ -56,6 +56,22 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+/* ── Mesh gradient background for light sections ── */
+.mesh-bg {
+  position: relative;
+}
+.mesh-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 50% 40% at 15% 20%, rgba(184, 80, 66, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 50% at 85% 60%, rgba(196, 160, 84, 0.05) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 35% at 50% 85%, rgba(214, 207, 198, 0.12) 0%, transparent 60%);
+  z-index: 0;
 }
 
 /* ── Glass utilities ── */
@@ -145,6 +161,35 @@ body {
 
 .animate-badge-pop {
   animation: badgePop 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ── Door reveal animation ── */
+@keyframes doorSlideLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-105%); }
+}
+@keyframes doorSlideRight {
+  from { transform: translateX(0); }
+  to   { transform: translateX(105%); }
+}
+
+/* ── Measurement line draw ── */
+@keyframes drawLine {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* ── Glow pulse for measurement points ── */
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 1; }
+}
+
+.animate-door-left {
+  animation: doorSlideLeft 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.animate-door-right {
+  animation: doorSlideRight 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {

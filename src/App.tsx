@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import './App.css'
 import { NavThemeProvider } from './context/NavThemeContext'
 import IntroOverlay from './components/IntroOverlay'
@@ -9,14 +9,16 @@ import ToolboxSection from './components/toolbox'
 import WishlistSection from './components/wishlist'
 import Footer from './components/Footer'
 import BackToTop from './components/BackToTop'
+import FloatingBanner from './components/FloatingBanner'
 
 export default function App() {
   const [introComplete, setIntroComplete] = useState(false)
-  const [videoStarted, setVideoStarted] = useState(false)
+
+  const handleVideoStart = useCallback(() => {}, [])
 
   return (
     <NavThemeProvider>
-      {!introComplete && <IntroOverlay onDone={() => { window.scrollTo(0, 0); setIntroComplete(true) }} onVideoStart={() => setVideoStarted(true)} />}
+      {!introComplete && <IntroOverlay onDone={() => { window.scrollTo(0, 0); setIntroComplete(true) }} onVideoStart={handleVideoStart} />}
 
       <div
         className="min-h-screen"
@@ -33,6 +35,7 @@ export default function App() {
         </main>
         <Footer />
         <BackToTop />
+        <FloatingBanner />
       </div>
     </NavThemeProvider>
   )

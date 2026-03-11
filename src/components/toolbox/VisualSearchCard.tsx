@@ -20,16 +20,16 @@ export default function VisualSearchCard({ visible }: { visible: boolean }) {
         <div>
           <div className="flex items-center gap-3 mb-5">
             <span className="text-[10px] font-bold tracking-[0.18em]" style={{ color: '#B85042' }}>03</span>
-            <span className="text-[10px] tracking-[0.14em] uppercase font-medium" style={{ color: `${SNOW}0.5)` }}>Visual Search & Try On</span>
+            <span className="text-[10px] tracking-[0.14em] uppercase font-medium" style={{ color: `${SNOW}0.62)` }}>Visual Search & Try On</span>
           </div>
           <h3
-            className="font-serif font-light leading-tight mb-4"
+            className="font-serif font-bold leading-tight mb-4"
             style={{ fontSize: 'clamp(1.8rem, 3vw, 2.8rem)', color: '#F0EBE5' }}
           >
             See It.<br />
             <em className="italic" style={{ color: '#B85042' }}>Own It.</em>
           </h3>
-          <p className="text-sm font-light leading-[1.8] max-w-md" style={{ color: `${SNOW}0.52)` }}>
+          <p className="text-sm font-light leading-[1.8] max-w-md" style={{ color: `${SNOW}0.64)` }}>
             Spotted a look you love? Upload it. Our system deconstructs every piece and curates the exact
             match — or the closest alternative at your specified budget. Try it on your AI avatar before buying.
           </p>

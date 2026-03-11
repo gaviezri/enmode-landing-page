@@ -27,7 +27,7 @@ export default function WishlistSection() {
   return (
     <RevealWrapper threshold={0.06}>
       {(visible) => (
-        <section id="wishlist" className="py-28 px-6 lg:px-10" style={{ background: '#F9F6F2' }}>
+        <section id="wishlist" className="py-28 px-6 lg:px-10 mesh-bg" style={{ background: '#F9F6F2' }}>
           <div className="max-w-7xl mx-auto">
 
             {/* ── Header ── */}
@@ -40,7 +40,7 @@ export default function WishlistSection() {
                   The Last Wishlist You'll Ever Need
                 </p>
                 <h2
-                  className="font-serif font-light leading-tight"
+                  className="font-serif font-bold leading-tight"
                   style={{
                     fontSize: 'clamp(2.8rem, 5.5vw, 5rem)',
                     color: '#0D0C10',

@@ -7,7 +7,8 @@ const Logo = () => {
       href="#"
       className="select-none hover:opacity-60 text-2xl"
       style={{
-        fontFamily: 'Audiowide, system-ui, sans-serif',
+        fontFamily: 'Syne, system-ui, sans-serif',
+        fontWeight: 800,
         letterSpacing: '0.06em',
         color: navTheme === 'dark' ? '#F0EBE5' : '#0D0C10',
         transition: 'color 0.4s ease',

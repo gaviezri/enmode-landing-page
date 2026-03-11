@@ -38,7 +38,7 @@ export default function MixMatchSection() {
       {(visible) => (
         <section
           id="mix-match"
-          className="py-28 px-6 lg:px-10"
+          className="py-28 px-6 lg:px-10 mesh-bg"
           style={{ background: '#F9F6F2' }}
         >
           <div className="max-w-7xl mx-auto">
@@ -53,7 +53,7 @@ export default function MixMatchSection() {
                   AI Mix & Match Stylist
                 </p>
                 <h2
-                  className="font-serif font-light leading-tight"
+                  className="font-serif font-bold leading-tight"
                   style={{
                     fontSize: 'clamp(2.8rem, 5.5vw, 5rem)',
                     color: '#0D0C10',
@@ -68,11 +68,11 @@ export default function MixMatchSection() {
               <div style={reveal(visible, 200)}>
                 <p
                   className="text-base font-light leading-[1.8] mb-7"
-                  style={{ color: 'rgba(13,12,16,0.52)' }}
+                  style={{ color: 'rgba(13,12,16,0.58)' }}
                 >
-                  Upload a style inspiration image. The AI performs a deep analysis
-                  of silhouettes, fabric, colors, and textures — then generates curated looks
-                  tailored to your selected budget tier.
+                  Endless Outfits. Zero Effort — let AI be your personal stylist.
+                  The system generates perfect Mix &amp; Match combinations from your digital wardrobe,
+                  or finds new pieces that complete the look, tailored to your budget.
                 </p>
 
                 {/* Budget tier selector */}

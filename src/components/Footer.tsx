@@ -49,13 +49,13 @@ export default function Footer() {
             Join the waitlist
           </p>
           <h2
-            className="font-serif font-light leading-[0.92] mb-6"
+            className="font-serif font-bold leading-[0.92] mb-6"
             style={{ fontSize: 'clamp(2.8rem, 6vw, 5.5rem)', color: '#EDE8E2' }}
           >
             Your wardrobe.<br />
             <em className="italic" style={{ color: '#B85042' }}>Your income.</em>
           </h2>
-          <p className="text-base font-light leading-[1.8] mb-10 max-w-md mx-auto" style={{ color: `${SNOW}0.42)` }}>
+          <p className="text-base font-light leading-[1.8] mb-10 max-w-md mx-auto" style={{ color: `${SNOW}0.55)` }}>
             No following required. When someone buys from your look,
             you earn — quietly, automatically.
           </p>
@@ -139,7 +139,8 @@ export default function Footer() {
                 href="#"
                 className="block mb-4 transition-opacity duration-200 hover:opacity-60"
                 style={{
-                  fontFamily: 'Audiowide, system-ui, sans-serif',
+                  fontFamily: 'Syne, system-ui, sans-serif',
+                  fontWeight: 800,
                   fontSize: '1.15rem',
                   letterSpacing: '0.06em',
                   color: '#EDE8E2',
